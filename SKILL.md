@@ -128,7 +128,7 @@ The dispatcher will check whether your report contains the skill's signature out
 
 STOP — Do not rely solely on existing conclusions from knowledge base files. You must:
 - Obtain at least 3 new data points not in the knowledge base via WebSearch
-- Supplement with real-time data via MCP tools (e.g., Semrush, Lark, etc., depending on availability)
+- Supplement with real-time data via MCP tools (depending on availability)
 - Clearly mark in the report which data came from the knowledge base and which from your independent research
 
 Rationale: If all agents only digest the same knowledge base, the discussion phase won't produce genuinely new insights. Independent research ensures each agent brings a different data foundation.

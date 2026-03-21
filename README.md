@@ -2,7 +2,7 @@
 
 **Run multiple skills in parallel on the same problem, then let agents debate and cross-validate findings through structured discussion rounds.**
 
-This skill invokes **real skill pipelines** with full tool access (WebSearch, Semrush, MCP servers, etc.), forces independent research, and produces emergent insights through structured adversarial debate.
+This skill invokes **real skill pipelines** with full tool access (WebSearch, MCP servers, etc.), forces independent research, and produces emergent insights through structured adversarial debate.
 
 **Designed for analysis tasks only** — market research, strategic planning, competitive analysis, opportunity assessment.
 
@@ -75,7 +75,7 @@ All agents launch simultaneously. Each agent must:
 |---|-----------|-------------|----------------|
 | 1 | Market size | Knowledge | ~/reports/data.md |
 | 2 | Competitor CPC | WebSearch | query + URL |
-| 3 | Pricing data | MCP | Semrush + query |
+| 3 | Pricing data | MCP | tool name + query |
 
 3. **Output structured claims** (5-15) at the end of every report in YAML format, each with: id, statement, confidence level, evidence type, data source, and declared blind spots.
 
@@ -350,7 +350,7 @@ The final report must go beyond compilation. The dispatcher performs:
 ### Optional
 
 - **WebSearch** tool enabled — agents need this for independent research
-- **MCP servers** — Semrush, Lark/Feishu, etc. for domain-specific data
+- **MCP servers** configured for domain-specific data (if available)
 
 ### Resource Considerations
 
