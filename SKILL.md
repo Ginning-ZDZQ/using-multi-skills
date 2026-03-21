@@ -1,6 +1,6 @@
 ---
 name: multi-mind-council
-description: "Parallel multi-skill analysis + cross-validation debate engine (analysis tasks only). Auto-triggers when the user mentions 2+ skill names in the same analysis task — e.g., 'analyze this with mao-methodology and marketing-psychology', 'use competitor-analysis and content-strategy to look at this market'. Also triggers on: 'multi-mind', 'council analysis', 'multi-skill analysis', 'cross-validate', 'parallel analysis', 'multi-angle analysis', 'analyze with multiple skills'. When a user is unsatisfied with a single skill's analysis depth, proactively suggest: 'Want to add skill X for cross-validation? I can run multi-mind-council to parallel-execute multiple skills and debate.' Note: This skill is ONLY for analysis/research/strategy tasks (market analysis, competitive research, strategic planning, decision evaluation). NOT for coding, design, or content creation."
+description: "Parallel multi-skill analysis + cross-validation debate engine (analysis tasks only). Auto-triggers when the user mentions 2+ skill names in the same analysis task — e.g., 'analyze this with {skill-A} and {skill-B}', 'use {skill-A} and {skill-B} to look at this problem'. Also triggers on: 'multi-mind', 'council analysis', 'multi-skill analysis', 'cross-validate', 'parallel analysis', 'multi-angle analysis', 'analyze with multiple skills'. When a user is unsatisfied with a single skill's analysis depth, proactively suggest: 'Want to add another skill for cross-validation? I can run multi-mind-council to parallel-execute multiple skills and debate.' Note: This skill is ONLY for analysis/research/strategy tasks. NOT for coding, design, or content creation."
 ---
 
 # Multi-Mind Council v2 — Parallel Multi-Skill Analysis + Cross-Validation Debate Engine
@@ -18,8 +18,8 @@ Each agent **must invoke a real skill's full pipeline via the Skill tool** — n
 ### Auto-Trigger Conditions (any one triggers)
 
 1. **Explicit multi-skill mention**: User mentions 2+ skill names + analysis intent in one message
-   - Example: "Use mao-methodology and marketing-psychology to analyze the energy storage market"
-   - Example: "competitor-analysis + content-strategy to look at this niche"
+   - Example: "Use {skill-A} and {skill-B} to analyze this problem"
+   - Example: "{skill-A} + {skill-B} to look at this topic"
 
 2. **Explicit trigger phrases**: multi-mind, council analysis, multi-skill analysis, cross-validate, parallel analysis
 
@@ -47,7 +47,7 @@ Confirm to start? Or would you like to adjust the skill combination?
 
 Even if multiple skills are mentioned:
 - Execution tasks ("Use copywriting to draft copy then copy-editing to refine")
-- Sequential dependency tasks ("First do keyword-research then content-strategy" — this is a pipeline, not parallel analysis)
+- Sequential dependency tasks ("First do {skill-A} then {skill-B}" — this is a pipeline, not parallel analysis)
 - User is merely discussing skills, no analysis intent
 
 ---
@@ -62,8 +62,8 @@ User provides:
 
 **Example:**
 ```
-multi-mind council: Analyze the balkonkraftwerk market entry opportunity
-skills: mao-methodology, marketing-psychology, marketing-ideas
+multi-mind council: Analyze {your problem}
+skills: {skill-A}, {skill-B}, {skill-C}
 knowledge base: ~/reports/bkw-q1.md
 ```
 
@@ -119,10 +119,10 @@ Your job is NOT to "write an analysis using {skill-name}'s thinking framework." 
 
 1. Use the Skill tool to invoke "{skill-name}", passing in the analysis task
 2. Let the skill run its own complete workflow (including independent research, data gathering, multi-stage analysis, etc.)
-3. If the skill has sub-stages (e.g., mao-methodology has Phase 0-5), ALL must execute
+3. If the skill has sub-stages, ALL must execute
 
 STOP — If you skip the Skill invocation and directly write a report using the skill's thinking style, this will be treated as invalid output.
-The dispatcher will check whether your report contains the skill's signature output format (e.g., mao-methodology must have Pre-flight declaration + contradiction analysis + MVA table).
+The dispatcher will check whether your report contains the skill's signature output format.
 
 ## Independent Research Requirement
 
@@ -167,7 +167,7 @@ claims:
     blind_spots: "What this framework cannot see"
 ```(end yaml)
 
-SKILL-PREFIX uses the skill name's uppercase abbreviation (e.g., mao-methodology -> MAO).
+SKILL-PREFIX uses the skill name's uppercase abbreviation.
 confidence: Has independent research data = HIGH, logical derivation = MEDIUM, pattern/absence inference = LOW.
 data_source: Mark where the claim's core evidence came from.
 blind_spots must be honestly declared.
@@ -178,9 +178,8 @@ blind_spots must be honestly declared.
 After receiving a report, the dispatcher checks:
 
 1. **Skill invocation verification**: Does the report contain the skill's signature output?
-   - mao-methodology -> Must have Pre-flight declaration + contradiction analysis + MVA table
-   - marketing-psychology -> Must have cognitive bias analysis + behavioral framework
-   - Other skills -> Must have that skill's distinctive analysis structure
+   - Each skill has its own distinctive output structure — check whether the report reflects the skill's methodology
+   - If the report reads like a generic analysis without the skill's unique framework, it likely wasn't properly invoked
    - If missing -> SendMessage requesting the agent to re-execute using the Skill tool
 
 2. **Data independence verification**: Does the provenance table have >= 3 non-knowledge-base sources?
@@ -244,7 +243,7 @@ Please:
 
 Skills with no contradictions don't need to participate in Round 1.
 
-**If no contradictions at all:** Skip Rounds 2-3, go directly to Phase 3. Note in report: "All skills converged. Consider adding a contrarian skill (e.g., mao-contrary-evidence)."
+**If no contradictions at all:** Skip Rounds 2-3, go directly to Phase 3. Note in report: "All skills converged. Consider adding a contrarian or adversarial skill for more diverse perspectives."
 
 ---
 
@@ -319,10 +318,10 @@ Before applying the template, the dispatcher performs the following analysis (th
 1. **Cross-blind-spot scan**: Are Agent A's blind_spots covered by Agent B's claims? What blind spots remain uncovered by ALL agents?
 
 2. **Causal chain reassembly**: Different skills may have found different links in the same causal chain. Attempt to connect them:
-   - Example: Psychology finds "compatibility anxiety is #1 decision killer" + strategy finds "content gap in nachrüsten" + tactics finds "calculator is highest-ROI tool" -> Emergent insight: "compatibility anxiety x content gap x tool absence = triple vacuum; filling any one creates value, but filling all three simultaneously produces a multiplier effect"
+   - Example: Skill A finds "Problem X is the #1 blocker" + Skill B finds "Gap Y exists in the market" + Skill C finds "Tool Z is the highest-ROI solution" -> Emergent insight: "X x Y x Z = triple vacuum; filling any one creates value, but filling all three simultaneously produces a multiplier effect"
 
 3. **Second-order effects of contradiction resolution**: Does the resolution of a debate itself create new problems?
-   - Example: D1 resolved as "authorized reseller" -> but this introduces MOQ capital threshold risk — a second-order problem created by the first-order resolution
+   - Example: A debate resolves in favor of Strategy S -> but S introduces a new dependency risk — a second-order problem created by the first-order resolution
 
 4. **Confidence-weighted action ranking**: Rank all recommended actions by "confidence x impact," not by discussion order
 

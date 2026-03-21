@@ -67,15 +67,9 @@ User: "Analyze {problem} with skills: {A}, {B}, {C}"
 
 All agents launch simultaneously. Each agent must:
 
-1. **Invoke the assigned skill via the Skill tool** — not just adopt the skill's thinking style. The dispatcher checks for the skill's signature output format (e.g., mao-methodology must produce Pre-flight declaration + contradiction analysis + MVA table). Reports missing signature formats are rejected.
+1. **Invoke the assigned skill via the Skill tool** — not just adopt the skill's thinking style. The dispatcher checks for the skill's signature output format. Reports missing signature formats are rejected.
 
-2. **Conduct independent research** — minimum 3 data points from WebSearch or MCP tools that aren't in the knowledge base. A Data Provenance Table is required:
-
-| # | Data Point | Source Type | Specific Source |
-|---|-----------|-------------|----------------|
-| 1 | Market size | Knowledge | ~/reports/data.md |
-| 2 | Competitor CPC | WebSearch | query + URL |
-| 3 | Pricing data | MCP | tool name + query |
+2. **Conduct independent research** — minimum 3 data points from WebSearch or MCP tools that aren't in the knowledge base. A Data Provenance Table is required in every report, showing each data point's source type (knowledge base, WebSearch, or MCP).
 
 3. **Output structured claims** (5-15) at the end of every report in YAML format, each with: id, statement, confidence level, evidence type, data source, and declared blind spots.
 
@@ -227,29 +221,29 @@ Claude should recognize the skill and ask you for a problem + skill list.
 ### Basic Usage
 
 ```
-Analyze the European energy storage market entry opportunity
-skills: mao-methodology, marketing-psychology, marketing-ideas
+Analyze {your problem}
+skills: {skill-A}, {skill-B}, {skill-C}
 ```
 
 ### With Knowledge Base
 
 ```
-multi-mind council: Analyze our competitor landscape
-skills: competitor-analysis, mao-situation-assessment, content-strategy
-Knowledge base: ~/reports/market-data.md, ~/data/competitor-traffic.csv
+multi-mind council: Analyze {your problem}
+skills: {skill-A}, {skill-B}, {skill-C}
+Knowledge base: ~/reports/data.md
 ```
 
 ### Auto-Trigger
 
 The skill auto-triggers when you mention 2+ skill names in an analysis context:
 ```
-Use mao-methodology and marketing-psychology to analyze this market
+Use {skill-A} and {skill-B} to analyze {your problem}
 ```
 Claude will confirm before starting:
 ```
 Detected multi-skill analysis request:
-  Problem: analyze this market
-  Skills: mao-methodology, marketing-psychology
+  Problem: {your problem}
+  Skills: {skill-A}, {skill-B}
   Estimated time: significant (each skill runs full pipeline)
   Confirm?
 ```
@@ -336,16 +330,9 @@ The final report must go beyond compilation. The dispatcher performs:
 - **Claude Code** with skill support
 - **At least 2 analysis-oriented skills** installed
 
-### Recommended Skills
+### Recommended Skill Types
 
-| Skill | What It Brings |
-|-------|---------------|
-| `mao-methodology` | Strategic structure, contradiction analysis, multi-phase pipeline |
-| `marketing-psychology` | Consumer behavior, cognitive biases, decision science |
-| `marketing-ideas` | Tactical marketing strategies, growth levers |
-| `competitor-analysis` | Competitive landscape mapping |
-| `content-strategy` | Content planning and gap analysis |
-| `mao-contrary-evidence` | Adversarial counter-evidence (great for adding tension) |
+Any analysis-oriented skills work well. Good combinations include skills that offer **different analytical lenses** on the same problem — for example, pairing a strategic analysis skill with a behavioral/psychological skill and a tactical/creative skill gives you three distinct perspectives that are most likely to produce meaningful contradictions and emergent insights.
 
 ### Optional
 
