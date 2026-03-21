@@ -64,7 +64,7 @@ User provides:
 ```
 multi-mind council: Analyze {your problem}
 skills: {skill-A}, {skill-B}, {skill-C}
-knowledge base: ~/reports/bkw-q1.md
+knowledge base: ~/reports/data.md
 ```
 
 If user doesn't specify a skill list, suggest 3-4 most relevant skills based on problem type, wait for confirmation before starting.
