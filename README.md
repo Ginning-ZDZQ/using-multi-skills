@@ -1,4 +1,4 @@
-# Using Multi-Skills
+# Using Multi Skills
 
 **Run multiple skills in parallel on the same problem, then let agents debate and cross-validate findings through structured discussion rounds.**
 
@@ -188,16 +188,16 @@ The final report highlights what **no single skill could have found alone**.
 ### Method 1: Direct Copy (Recommended)
 
 ```bash
-git clone https://github.com/Ginning-ZDZQ/using-muti-skills.git
+git clone https://github.com/Ginning-ZDZQ/using-multi-skills.git
 mkdir -p ~/.claude/skills/multi-mind-council
-cp using-muti-skills/SKILL.md ~/.claude/skills/multi-mind-council/SKILL.md
+cp using-multi-skills/SKILL.md ~/.claude/skills/multi-mind-council/SKILL.md
 ```
 
 ### Method 2: Git Submodule
 
 ```bash
 cd ~/.claude/skills
-git submodule add https://github.com/Ginning-ZDZQ/using-muti-skills.git multi-mind-council
+git submodule add https://github.com/Ginning-ZDZQ/using-multi-skills.git multi-mind-council
 ```
 
 ### Method 3: Manual Download
